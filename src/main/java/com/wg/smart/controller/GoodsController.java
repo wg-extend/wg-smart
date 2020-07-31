@@ -1,15 +1,12 @@
 package com.wg.smart.controller;
 
+import com.wg.smart.entity.param.GoodsParam;
 import com.wg.smart.model.Goods;
 import com.wg.smart.service.GoodsService;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,16 +16,45 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/goods")
+@Slf4j
 public class GoodsController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
     private GoodsService goodsService;
 
-    @ApiOperation(value = "套餐产品预定-酒店日历", notes = "套餐产品预定-酒店日历")
-    @GetMapping(value = "/list")
-    public List<Goods> getPackageCalendarApp() {
-        return null;
+    @ApiOperation(value = "添加产品", notes = "添加产品")
+    @PostMapping(value = "/add")
+    public Boolean addGoods() {
+        return goodsService.addGoods(null);
+    }
+
+    @ApiOperation(value = "更新产品", notes = "更新产品")
+    @PostMapping(value = "/update")
+    public Boolean updateGoods(@RequestBody GoodsParam goodsParam) {
+        return goodsService.updateGoods(goodsParam);
+    }
+
+    @ApiOperation(value = "删除产品", notes = "删除产品")
+    @PostMapping(value = "/delete")
+    public Boolean deleteGoods(@RequestParam Long id) {
+        return goodsService.deleteGoods(id);
+    }
+
+    @ApiOperation(value = "产品列表-name", notes = "产品列表-name")
+    @GetMapping(value = "/list/name")
+    public List<Goods> getGoodsList(@RequestParam String name) {
+        return goodsService.getGoodsList(name);
+    }
+
+    @ApiOperation(value = "产品详情", notes = "产品详情")
+    @GetMapping(value = "/detail")
+    public Goods getGoods(@RequestParam Long id) {
+        return goodsService.getGoodsById(id);
+    }
+
+    @ApiOperation(value = "产品列表-key", notes = "产品列表-key")
+    @GetMapping(value = "/list/key")
+    public List<Goods> topSearchTitle(@RequestParam String keyword) {
+        return goodsService.topSearchTitle(keyword);
     }
 }

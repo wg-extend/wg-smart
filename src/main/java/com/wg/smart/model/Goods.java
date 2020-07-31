@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Data
 @ApiModel
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+@Document(indexName = "goods", type = "goods")
 public class Goods {
 
     @Id
