@@ -2,6 +2,7 @@ package com.wg.smart.controller;
 
 import com.wg.smart.entity.param.GoodsParam;
 import com.wg.smart.model.Goods;
+import com.wg.smart.model.GoodsSearch;
 import com.wg.smart.service.GoodsService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -42,19 +43,19 @@ public class GoodsController {
 
     @ApiOperation(value = "产品列表-name", notes = "产品列表-name")
     @GetMapping(value = "/list/name")
-    public List<Goods> getGoodsList(@RequestParam String name) {
+    public List<GoodsSearch> getGoodsList(@RequestParam String name) {
         return goodsService.getGoodsList(name);
     }
 
     @ApiOperation(value = "产品详情", notes = "产品详情")
     @GetMapping(value = "/detail")
-    public Goods getGoods(@RequestParam Long id) {
+    public GoodsSearch getGoods(@RequestParam Long id) {
         return goodsService.getGoodsById(id);
     }
 
     @ApiOperation(value = "产品列表-key", notes = "产品列表-key")
     @GetMapping(value = "/list/key")
-    public List<Goods> topSearchTitle(@RequestParam String keyword) {
+    public List<GoodsSearch> topSearchTitle(@RequestParam String keyword) {
         return goodsService.topSearchTitle(keyword);
     }
 }

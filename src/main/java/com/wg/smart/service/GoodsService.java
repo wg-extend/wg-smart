@@ -2,6 +2,7 @@ package com.wg.smart.service;
 
 import com.wg.smart.entity.param.GoodsParam;
 import com.wg.smart.model.Goods;
+import com.wg.smart.model.GoodsSearch;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public interface GoodsService {
 
     Boolean deleteGoods(Long id);
 
-    List<Goods> getGoodsList(String name);
+    List<GoodsSearch> getGoodsList(String name);
 
-    Goods getGoodsById(Long id);
+    GoodsSearch getGoodsById(Long id);
 
-    List<Goods> topSearchTitle(String keyword);
+    List<GoodsSearch> topSearchTitle(String keyword);
 }

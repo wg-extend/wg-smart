@@ -1,25 +1,24 @@
 package com.wg.smart.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "t_goods")
 @Data
 @ApiModel
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 @Accessors(chain = true)
 @Document(indexName = "goods", type = "goods")
-public class Goods implements Serializable {
+public class GoodsSearch implements Serializable {
 
-    private static final long serialVersionUID = 9063254538801269804L;
+    private static final long serialVersionUID = -5204293986169944416L;
 
     @Id
     @Column

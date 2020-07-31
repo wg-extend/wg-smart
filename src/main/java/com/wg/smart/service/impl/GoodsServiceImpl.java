@@ -1,8 +1,10 @@
 package com.wg.smart.service.impl;
 
+import com.google.common.collect.Lists;
 import com.wg.smart.entity.param.GoodsParam;
 import com.wg.smart.mapper.GoodsMapper;
-import com.wg.smart.mapper.GoodsRepository;
+import com.wg.smart.model.GoodsSearch;
+import com.wg.smart.repository.GoodsRepository;
 import com.wg.smart.model.Goods;
 import com.wg.smart.service.GoodsService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,13 +41,19 @@ public class GoodsServiceImpl implements GoodsService {
     public Boolean addGoods(List<Goods> goodsList) {
         //将mysql goods表中的数据添加到 elasticSearch
         List<Goods> goodsListTemp = goodsMapper.findAll();
-        goodsListTemp = (List<Goods>) goodsRepository.saveAll(goodsListTemp);
-        return CollectionUtils.isNotEmpty(goodsListTemp);
+        List<GoodsSearch> goodsSearches = Lists.newArrayList();
+        goodsListTemp.forEach(goods -> {
+            GoodsSearch goodsSearch = new GoodsSearch();
+            BeanUtils.copyProperties(goods,goodsSearch);
+            goodsSearches.add(goodsSearch);
+        });
+        List<GoodsSearch> goodsSearchList = (List<GoodsSearch>) goodsRepository.saveAll(goodsSearches);
+        return CollectionUtils.isNotEmpty(goodsSearchList);
     }
 
     @Override
     public Boolean updateGoods(GoodsParam goodsParam) {
-        Goods goods = new Goods();
+        GoodsSearch goods = new GoodsSearch();
         BeanUtils.copyProperties(goodsParam,goods);
         goodsRepository.save(goods);
         return true;
@@ -58,25 +66,25 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> getGoodsList(String name) {
-        List<Goods> goodsListTemp1 = goodsRepository.findByName(name);
+    public List<GoodsSearch> getGoodsList(String name) {
+        List<GoodsSearch> goodsListTemp1 = goodsRepository.findByGoodsNameLike(name);
         log.info("goodsListTemp1 is {}",goodsListTemp1);
-        List<Goods> goodsListTemp2 = goodsRepository.findByNameCustom(name);
+        List<GoodsSearch> goodsListTemp2 = goodsRepository.findByGoodsName(name);
         log.info("goodsListTemp2 is {}",goodsListTemp2);
-        return goodsListTemp2;
+        return goodsListTemp1;
     }
 
     @Override
-    public Goods getGoodsById(Long id) {
+    public GoodsSearch getGoodsById(Long id) {
         return goodsRepository.findById(id).get();
     }
 
     @Override
-    public List<Goods> topSearchTitle(String keyword) {
+    public List<GoodsSearch> topSearchTitle(String keyword) {
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryStringQuery(keyword))
                 .build();
-        List<Goods> goodsList = elasticsearchTemplate.queryForList(searchQuery, Goods.class);
+        List<GoodsSearch> goodsList = elasticsearchTemplate.queryForList(searchQuery, GoodsSearch.class);
         log.info("goodsList is {}",goodsList);
         return goodsList;
     }
