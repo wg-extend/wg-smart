@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,8 +13,6 @@ import java.io.Serializable;
 @Data
 @ApiModel
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-@Accessors(chain = true)
-@Document(indexName = "goods", type = "goods")
 public class Goods implements Serializable {
 
     private static final long serialVersionUID = 9063254538801269804L;
