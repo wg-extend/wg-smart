@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_goods")
@@ -14,7 +15,9 @@ import javax.persistence.*;
 @ApiModel
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 @Document(indexName = "goods", type = "goods")
-public class Goods {
+public class Goods implements Serializable {
+
+    private static final long serialVersionUID = 9063254538801269804L;
 
     @Id
     @Column
