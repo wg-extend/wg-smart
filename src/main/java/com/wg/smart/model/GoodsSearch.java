@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,6 @@ import java.io.Serializable;
 @Data
 @ApiModel
 @Accessors(chain = true)
-@Document(indexName = "goods", type = "goods")
 public class GoodsSearch implements Serializable {
 
     private static final long serialVersionUID = -5204293986169944416L;
