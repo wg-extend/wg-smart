@@ -17,7 +17,7 @@ import java.util.List;
 public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
-    private RestHighLevelClient restHighLevelClient;
+    RestHighLevelClient restHighLevelClient;
 
 
     @Override
