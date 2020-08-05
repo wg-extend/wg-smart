@@ -7,7 +7,4 @@ spring:
   jackson:
     time-zone: GMT+8
   elasticsearch:
-    rest:
-      username: user
-      password: 123456
-      uris: http://127.0.0.1:9200
+    ip: localhost:9200
