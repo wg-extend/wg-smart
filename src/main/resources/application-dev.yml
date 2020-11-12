@@ -7,4 +7,4 @@ spring:
   jackson:
     time-zone: GMT+8
   elasticsearch:
-    ip: localhost:9200
+    ip: 81.70.7.120:9200
